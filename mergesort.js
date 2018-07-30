@@ -1,27 +1,18 @@
 let splitArray = [];
 
-function split (wholeArray) {
+function split(array) {
+	let index = Math.floor(array.length / 2)
+	let firstHalf =  array.slice(0, index)
+	let secondHalf = array.slice(index)
+	return [firstHalf, secondHalf]
+}
 
-	let index = Math.floor(wholeArray.length / 2)
+function splitRecursive (wholeArray) {
 
 	if ( wholeArray.length > 1){
-
-		let firstHalf =  wholeArray.slice(0, index)
-		let secondHalf = wholeArray.slice(index)
-
-		if (firstHalf.length > 1){
-			split(firstHalf)
-		}else {
-			console.log("here")
-			splitArray.push(firstHalf)
-			console.log(splitArray)
-		}
-
-		if (secondHalf.length > 1){
-			split(secondHalf)
-		} else {
-			splitArray.push(secondHalf)
-		}
+		let firstSplit = split(wholeArray)
+		splitRecursive(firstSplit[0])
+		splitRecursive(firstSplit[1])	
 	}	
 
 	if(wholeArray.length === 1){
@@ -29,7 +20,7 @@ function split (wholeArray) {
 	}
 
 	return splitArray;
-	}
+}
 
 function merge (arrayOne, arrayTwo) {
 	let mergeArray = [];
@@ -47,9 +38,31 @@ function merge (arrayOne, arrayTwo) {
 	return mergeArray;
 }
 
+function mergeRecursive(nestedArray){
+	let index = Math.floor(nestedArray.length / 2);
+	let firstHalf = nestedArray.slice(0,index);
+	let secondHalf = nestedArray.slice(index);
+
+	if(firstHalf.length === 2){
+		firstHalf = merge(firstHalf[0], firstHalf[1]);
+		console.log(firstHalf)
+	}else if(firstHalf.length > 2) {
+		firstHalf = mergeRecursive(firstHalf)
+	}
+
+	if(secondHalf.length === 2){
+		secondHalf = merge(secondHalf[0],secondHalf[1])
+	}else if (secondHalf.length > 2){
+		secondHalf = mergeRecursive(secondHalf)
+	}
+
+	return merge(firstHalf, secondHalf)
+}
+
 function mergeSort(array) {
 	let arrayToMerge = split(array);
+	return mergeRecursive(nestedArray);
 	
 }
 
-console.log(mergeSort([1,2,3,4,5,6]))
+//console.log(mergeSort([1,2,3,4,5,6]))
