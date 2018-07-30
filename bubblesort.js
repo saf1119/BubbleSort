@@ -1,9 +1,9 @@
 function bubbleSort(array){
 	if (array.length){
-		for (let i = 0; i < array.length - 2; ++i){
-			if (array[i] > array[i+1]) swap(i, array)
+		for (let i = 0; i < array.length - 1; ++i){
+			if (array[i] > array[i + 1]) swap(i, array)
 		}
-		return bubbleSort(array.slice(0,-1)).concat(array[array.length-1]);
+		return bubbleSort(array.slice(0, -1)).concat(array[array.length - 1]);
 	}
 	return array;
 }
